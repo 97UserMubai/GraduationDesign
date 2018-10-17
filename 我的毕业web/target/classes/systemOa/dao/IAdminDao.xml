@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="systemOa.dao.IAdminDao">
+
+    <select id="selectAdminByAc" resultType="Admin">
+        select * from systemoa.admin where account = #{account}
+    </select>
+
+</mapper>
