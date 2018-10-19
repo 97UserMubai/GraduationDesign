@@ -432,7 +432,7 @@ a:hover {
       font-size: 1.5em;
       text-decoration: none; }
   .card .card-header .pull-right {
-    padding: 0.5em 1em; }
+    padding: 0.5em 10em 0.5em 1em; }
   .card .card-header:after {
     content: '';
     display: block;
@@ -491,7 +491,7 @@ a:hover {
   font-family: 'Roboto Condensed', sans-serif; }
 
 .btn-group-lg > .btn, .btn-group-lg > .btn-lg {
-  border-radius: 1px; }
+  border-radius: 2px; }
 
 .progress {
   border-radius: 1px;

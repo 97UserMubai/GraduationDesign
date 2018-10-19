@@ -26,10 +26,10 @@
     <!--注册验证驱动-->
     <mvc:annotation-driven validator="myValidator"/>
     <!--注册文件驱动-->
-    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
-        <property name="defaultEncoding" value="utf-8"/>
-        <property name="maxUploadSize" value="1048576"/>
-    </bean>
+    <!--<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">-->
+        <!--<property name="defaultEncoding" value="utf-8"/>-->
+        <!--<property name="maxUploadSize" value="1048576"/>-->
+    <!--</bean>-->
     <!--配置拦截器-->
     <!--<mvc:interceptors>-->
         <!--&lt;!&ndash;  登陆拦截器&ndash;&gt;-->

@@ -11,6 +11,6 @@
     <title>Title</title>
 </head>
 <body>
-这里是错误的测试页面
+${message}
 </body>
 </html>

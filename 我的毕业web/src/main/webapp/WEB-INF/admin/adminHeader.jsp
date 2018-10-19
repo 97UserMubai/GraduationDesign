@@ -87,7 +87,7 @@
                     </li>
                     <li class="menu-item menu-item-has-children dropdown"><a href="#">文件管理</a>
                         <ul class="sub-menu">
-                            <li class="menu-item"><a href="index.html">文件上传</a></li>
+                            <li class="menu-item"><a href="fileManager.jsp">文件上传</a></li>
                             <li class="menu-item"><a href="#">文件下载</a></li>
                             <li class="menu-item"><a href="#">历史文件</a></li>
                         </ul>
