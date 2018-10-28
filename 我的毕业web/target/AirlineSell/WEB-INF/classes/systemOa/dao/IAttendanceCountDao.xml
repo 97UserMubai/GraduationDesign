@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="systemOa.dao.IAttendanceCountDao">
+
+    <select id="selectExitAttendanceCount" resultType="AttendanceCount">
+        select * from systemoa.attendanceCount
+        where monthId = #{monthId} and employeeId=#{employeeId}
+    </select>
+
+    <insert id="insertNewAttendanceCount">
+        insert into systemoa.attendanceCount(monthId,employeeId,personName,department,
+        clockInSuccessCount,knockOffSuccessCount,clockInFailCount,knockOffFailCount)
+        values (#{monthId},#{employeeId},#{personName},#{department},
+        #{clockInSuccessCount},#{knockOffSuccessCount},#{clockInFailCount},#{knockOffFailCount})
+    </insert>
+
+    <update id="updateAttendanceCountClock">
+        update systemoa.attendanceCount
+        set clockInSuccessCount=#{clockInSuccessCount}
+        where monthId = #{monthId} and employeeId = #{employeeId}
+    </update>
+
+    <update id="updateAttendanceCountKnock">
+        update systemoa.attendanceCount
+        set knockOffSuccessCount=#{knockOffSuccessCount}
+        where monthId = #{monthId} and employeeId = #{employeeId}
+    </update>
+
+    <update id="updateAttendanceCountClockFail">
+        update systemoa.attendanceCount
+        set clockInFailCount=#{clockInFailCount}
+        where monthId = #{monthId} and employeeId = #{employeeId}
+    </update>
+
+    <update id="updateAttendanceCountKnockFail">
+        update systemoa.attendanceCount
+        set knockOffFailCount=#{knockOffFailCount}
+        where monthId = #{monthId} and employeeId = #{employeeId}
+    </update>
+
+</mapper>

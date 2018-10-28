@@ -1,8 +1,8 @@
 <%--
   Created by IntelliJ IDEA.
-  User: TIANYANZHI
-  Date: 2018/8/6 0006
-  Time: 8:25
+  User: 木白
+  Date: 2018/10/26
+  Time: 17:45
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -27,7 +27,7 @@
 </head>
 <body>
 <%--引入页面--%>
-<jsp:include page="/WEB-INF/admin/adminHeader.jsp" />
+<jsp:include page="/WEB-INF/employee/employeeHeader.jsp" />
 <!-- Main Content -->
 <div class="container-fluid">
     <div class="side-body">
@@ -54,7 +54,6 @@
                                                 <h4 class="modal-title" id="myModalLabe0">添加新员工信息</h4>
                                             </div>
                                             <div class="modal-body">
-
                                                 <form class="form-horizontal" action="addEmployee.do" >
                                                     <div class="form-group">
                                                         <label for="input8" class="col-sm-2 control-label">员工名字</label>
@@ -109,7 +108,7 @@
                             <c:forEach items="${pageInfo.list}" var="employees" varStatus="status">
                                 <tr>
                                     <td>${employees.name}</td>
-                                    <td>${employees.id}</td>
+                                    <td>${employees.employeeId}</td>
                                     <td>${employees.department}</td>
                                     <td>${employees.phone}</td>
                                     <td>${employees.identity}</td>
@@ -128,7 +127,7 @@
                                                     </div>
                                                     <div class="modal-footer">
                                                         <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-                                                        <a href="${pageContext.request.contextPath}/deleteEmployee.do?id=${pageInfo.list[status.index+1].id}">
+                                                        <a href="${pageContext.request.contextPath}/deleteEmployee.do?employeeId=${pageInfo.list[status.index+1].employeeId}">
                                                             <button type="button" class="btn btn-danger">确认炒他</button>
                                                         </a>
                                                     </div>
@@ -163,3 +162,4 @@
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/libjs/index.js"></script>
 </body>
 </html>
+

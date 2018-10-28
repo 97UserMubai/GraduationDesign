@@ -1,5 +1,7 @@
 package systemOa.controller;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileUploadBase;
 import org.apache.commons.fileupload.ProgressListener;
@@ -8,7 +10,9 @@ import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import systemOa.bean.Employee;
 import systemOa.bean.FileBean;
 import systemOa.bean.OperationLog;
@@ -168,7 +172,8 @@ public class FileController extends HttpServlet {
                     Date date = new Date();
                     SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                     String fileTime = formatter.format(date);
-                    int i = iFileBeanService.insertFileLog(new FileBean(filePerson,filename,fileDepartment,fileTime,fileSource));
+                    String fileStatus = "正常";
+                    int i = iFileBeanService.insertFileLog(new FileBean(filePerson,filename,fileDepartment,fileTime,fileSource,fileStatus));
                     String opeAction = "文件上传";
                     String opeAll= employee.getDepartment()+"的"+employee.getName()+"在"+fileTime+"进行了"
                             +opeAction+"操作,文件名为："+filename;
@@ -273,9 +278,32 @@ public class FileController extends HttpServlet {
         doGetDownload(request,response);
     }
 
+    @RequestMapping("JumpFileManager.do")
+    public String jumpFileManager(HttpSession session){
+        Employee employee = (Employee)session.getAttribute("employee");
+        if(employee.getAuthority()==2){
+            return "WEB-INF/employee/manager/FileManager/fileManager.jsp";
+        }
+        else{
+            return "WEB-INF/employee/personnel/FileManager/fileManager.jsp";
+        }
+    }
+
     @RequestMapping("selectAllFileLog.do")
-    public String selectAllFileLog(){
-        return null;
+    public String selectAllFileLog(@RequestParam(value = "pn", defaultValue = "1") Integer pn, Model model,HttpSession session){
+        int pageSize = 1000;
+        //pageSize为总的记录长度
+        PageHelper.startPage(pn, pageSize);
+        List<FileBean> fileBeans = iFileBeanService.selectAllFileLog();
+        PageInfo page = new PageInfo(fileBeans, pageSize);
+        model.addAttribute("pageInfo", page);
+        Employee employee = (Employee)session.getAttribute("employee");
+        if(employee.getAuthority()==2){
+            return "WEB-INF/employee/manager/FileManager/fileManager.jsp";
+        }
+        else{
+            return "WEB-INF/employee/personnel/FileManager/fileManager.jsp";
+        }
     }
 
 

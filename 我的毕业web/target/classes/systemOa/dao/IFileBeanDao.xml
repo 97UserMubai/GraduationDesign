@@ -5,9 +5,13 @@
 <mapper namespace="systemOa.dao.IFileBeanDao">
 
     <insert id="insertFileLog" >
-        insert  into systemoa.file(fileId,filePerson,fileName,fileDepartment,fileTime,fileSource)
+        insert  into systemoa.file(fileId,filePerson,fileName,fileDepartment,fileTime,fileSource,fileStatus)
         values
-        (#{fileId},#{filePerson},#{fileName},#{fileDepartment},#{fileTime},#{fileSource})
+        (#{fileId},#{filePerson},#{fileName},#{fileDepartment},#{fileTime},#{fileSource},#{fileStatus})
     </insert>
+
+    <select id="selectAllFileLog" resultType="FileBean">
+        select * from systemoa.file where fileStatus="正常"
+    </select>
 
 </mapper>

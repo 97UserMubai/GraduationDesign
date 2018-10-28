@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="systemOa.dao.IAttendanceDao">
+
+    <!--查询是否存在该字段-->
+    <select id="selectExistStatus" resultType="Attendance">
+        select * from systemoa.attendance where monthId = #{monthId} and monthDay = #{monthDay}
+        and employeeId = #{employeeId}
+    </select>
+    <!--查询是否签到-->
+    <select id="selectAttendanceClockStatus" resultType="Attendance">
+        select * from systemoa.attendance
+        where
+        monthId = #{monthId} and monthDay = #{monthDay}
+        and employeeId = #{employeeId}
+    </select>
+
+    <!--如果不存在该字段则插入新字段-->
+    <insert id="insertNewAttendance">
+        insert into systemoa.attendance(monthId,monthDay,weekDay,employeeId,department,personName,clockInTime,
+        knockOffTime,clockInStatus,knockOffStatus)
+        values
+        (#{monthId},#{monthDay},#{weekDay},#{employeeId},#{department},#{personName},
+        #{clockInTime},#{knockOffTime},#{clockInStatus},#{knockOffStatus})
+    </insert>
+    <!--当判断未签到时，进行签到属性更新-->
+    <update id="updateAttendanceClock">
+        update systemoa.attendance
+        set clockInTime = #{clockInTime},clockInStatus=#{clockInStatus}
+        where monthId = #{monthId} and monthDay = #{monthDay}
+        and employeeId = #{employeeId}
+    </update>
+
+    <update id="updateAttendanceKnock">
+        update systemoa.attendance
+        set knockOffTime = #{knockOffTime},knockOffStatus=#{knockOffStatus}
+        where monthId = #{monthId} and monthDay = #{monthDay}
+        and employeeId = #{employeeId}
+    </update>
+
+    <!--查询员工当月签到签退信息-->
+    <select id="selectMonthClockAndKnockByEmployeeId" resultType="Attendance">
+        select * from systemoa.attendance
+        where
+        monthId = #{monthId} and employeeId = #{employeeId}
+    </select>
+
+</mapper>

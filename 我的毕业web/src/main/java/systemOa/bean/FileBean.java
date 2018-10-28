@@ -8,6 +8,7 @@ public class FileBean {
     private String fileDepartment;
     private String fileTime;
     private String fileSource;
+    private String fileStatus;
 
     public String getFileId() {
         return fileId;
@@ -57,14 +58,22 @@ public class FileBean {
         this.fileDepartment = fileDepartment;
     }
 
+    public String getFileStatus() {
+        return fileStatus;
+    }
+
+    public void setFileStatus(String fileStatus) {
+        this.fileStatus = fileStatus;
+    }
+
     public FileBean(){super();}
 
-    public FileBean( String filePerson, String fileName, String fileDepartment, String fileTime, String fileSource) {
-
+    public FileBean(String filePerson, String fileName, String fileDepartment, String fileTime, String fileSource, String fileStatus) {
         this.filePerson = filePerson;
         this.fileName = fileName;
         this.fileDepartment = fileDepartment;
         this.fileTime = fileTime;
         this.fileSource = fileSource;
+        this.fileStatus = fileStatus;
     }
 }

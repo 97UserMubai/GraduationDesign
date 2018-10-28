@@ -7,6 +7,8 @@ import systemOa.bean.FileBean;
 import systemOa.dao.IFileBeanDao;
 import systemOa.service.IFileBeanService;
 
+import java.util.List;
+
 @Service("fileBeanService")
 public class FileBeanService implements IFileBeanService {
 
@@ -27,4 +29,11 @@ public class FileBeanService implements IFileBeanService {
     public int insertFileLog(FileBean fileBean) {
         return iFileBeanDao.insertFileLog(fileBean);
     }
+
+    @Override
+    public List<FileBean> selectAllFileLog() {
+        return iFileBeanDao.selectAllFileLog();
+    }
+
+
 }

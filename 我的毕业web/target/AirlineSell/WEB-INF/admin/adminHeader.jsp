@@ -94,8 +94,7 @@
                     </li>
                     <li class="menu-item menu-item-has-children dropdown"><a href="#">考勤管理</a>
                         <ul class="sub-menu">
-                            <li class="menu-item"><a href="index.html">签到</a></li>
-                            <li class="menu-item"><a href="#">签退</a></li>
+                            <li class="menu-item"><a href="index.html">签到/签退</a></li>
                             <li class="menu-item"><a href="#">请假</a></li>
                             <li class="menu-item"><a href="#">查看考勤历史</a></li>
                         </ul>
@@ -108,8 +107,15 @@
                     </li>
                     <li class="menu-item menu-item-has-children dropdown"><a href="#">人事管理</a>
                         <ul class="sub-menu">
-                            <li class="menu-item"><a href="index.html">部门管理</a></li>
                             <li class="menu-item"><a href="#">员工管理</a></li>
+                        </ul>
+                    </li>
+                    <li class="menu-item menu-item-has-children dropdown"><a href="#">部门管理</a>
+                        <ul class="sub-menu">
+                            <li class="menu-item"><a href="">业务进度</a></li>
+                            <li class="menu-item"><a href="">报表登记</a></li>
+                            <li class="menu-item"><a href="">工资表</a></li>
+                            <li class="menu-item"><a href="">考勤表</a></li>
                         </ul>
                     </li>
                     <li class="menu-item menu-item-has-children dropdown"><a href="#">系统管理</a>

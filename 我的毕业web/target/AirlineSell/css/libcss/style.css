@@ -432,7 +432,7 @@ a:hover {
       font-size: 1.5em;
       text-decoration: none; }
   .card .card-header .pull-right {
-    padding: 0.5em 10em 0.5em 1em; }
+    padding: 0.5em -2em 0.5em 1em; }
   .card .card-header:after {
     content: '';
     display: block;
@@ -453,6 +453,7 @@ a:hover {
     .card.summary-inline .card-body .content .title {
       font-family: 'Lato', sans-serif;
       margin-top: -0.3em;
+      font-size: 3.5em;
       font-size: 3.5em;
       text-align: right; }
     .card.summary-inline .card-body .content .sub-title {

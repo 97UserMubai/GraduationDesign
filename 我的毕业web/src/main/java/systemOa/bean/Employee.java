@@ -1,7 +1,7 @@
 package systemOa.bean;
 
 public class Employee {
-    private String id;
+    private String employeeId;
     private String name;
     private String password;
     private String department;
@@ -9,12 +9,12 @@ public class Employee {
     private String identity;
     private int authority;
 
-    public String getId() {
-        return id;
+    public String getEmployeeId() {
+        return employeeId;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setEmployeeId(String employeeId) {
+        this.employeeId = employeeId;
     }
 
     public String getName() {

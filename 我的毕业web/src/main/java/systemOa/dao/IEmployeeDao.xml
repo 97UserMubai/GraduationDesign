@@ -5,7 +5,7 @@
 <mapper namespace="systemOa.dao.IEmployeeDao">
 
     <select id="LoginCheck" resultType="Employee">
-        select * from systemoa.employee where id = #{id}
+        select * from systemoa.employee where employeeId = #{employeeId}
     </select>
 
     <select id="selectAllEmployees" resultType="Employee">
@@ -13,12 +13,12 @@
     </select>
 
     <insert id="insertEmployee">
-        insert into systemoa.employee(id,name,password,department,phone,identity,authority)
+        insert into systemoa.employee(employeeId,name,password,department,phone,identity,authority)
         values
-        (#{id},#{name},#{password},#{department},#{phone},#{identity},#{authority})
+        (#{employeeId},#{name},#{password},#{department},#{phone},#{identity},#{authority})
     </insert>
 
     <delete id="deleteEmployee">
-        delete from systemoa.employee where id=#{xxx}
+        delete from systemoa.employee where employeeId=#{xxx}
     </delete>
 </mapper>

@@ -8,14 +8,17 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import systemOa.bean.Attendance;
 import systemOa.bean.Employee;
 import systemOa.bean.OperationLog;
+import systemOa.service.IAttendanceService;
 import systemOa.service.IEmployeeService;
 import systemOa.service.IOperationLogService;
 import systemOa.useClass.FrequentMethod;
 
 import javax.servlet.http.HttpSession;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -46,6 +49,17 @@ public class EmployeeController {
         this.iOperationLogService = iOperationLogService;
     }
 
+    @Autowired
+    @Qualifier("attendanceService")
+    private IAttendanceService iAttendanceService;
+
+    public IAttendanceService getiAttendanceService() {
+        return iAttendanceService;
+    }
+
+    public void setiAttendanceService(IAttendanceService iAttendanceService) {
+        this.iAttendanceService = iAttendanceService;
+    }
 
     //封装的日志登记方法
     public void loadLogs(String opeAction, Employee employee){
@@ -70,7 +84,7 @@ public class EmployeeController {
 
     @RequestMapping("LoginCheck.do")
     public String loginCheck(Employee employee, Model model, HttpSession session){
-        employee = iEmployeeService.LoginCheck(employee.getId(),employee.getPassword());
+        employee = iEmployeeService.LoginCheck(employee.getEmployeeId(),employee.getPassword());
 
         if(employee!=null){
             String opeAction = "登录";
@@ -78,24 +92,63 @@ public class EmployeeController {
             loadLogs(opeAction,employee);
             //服务端信息记录
             session.setAttribute("employee",employee);
-            return "employeeHeader.jsp";
+
+//            Date dateAttendance = new Date();
+            Calendar cal = Calendar.getInstance();
+            cal.setTime(new Date());
+            String year = String.valueOf(cal.get(cal.YEAR));
+            int month = cal.get(cal.MONTH)+1;
+            String monthId = year+month;
+            int monthDay = cal.get(cal.DAY_OF_MONTH);
+            int day = cal.get(cal.DAY_OF_WEEK)-1;
+
+            String weekDay = null;
+            switch (day){
+                case 1:weekDay="星期一";break;
+                case 2:weekDay="星期二";break;
+                case 3:weekDay="星期三";break;
+                case 4:weekDay="星期四";break;
+                case 5:weekDay="星期五";break;
+                case 6:weekDay="星期六";break;
+                case 7:weekDay="星期日";break;
+            }
+            Attendance attendance = iAttendanceService.selectExistStatus(monthId,monthDay,employee.getEmployeeId());
+            if(attendance==null){
+                Attendance attendance1 = new Attendance(monthId,monthDay,weekDay,employee.getEmployeeId(),
+                        employee.getDepartment(),employee.getName(),
+                        null,null,0,0);
+                iAttendanceService.insertNewAttendance(attendance1);
+                session.setAttribute("attendance",attendance1);
+            }
+            else{
+                session.setAttribute("attendance",attendance);
+            }
+            return "WEB-INF/employee/employeeHeader.jsp";
         }else{
+
             model.addAttribute("msg", "用户名或密码错误，请重新登录！");
             return "index.jsp";
         }
 
     }
 
-
-
     //查询所有员工信息
     @RequestMapping("selectAllEmployees.do")
-    public String selectAllEmployees(@RequestParam(value = "pn", defaultValue = "1") Integer pn, Model model){
+    public String selectAllEmployees(@RequestParam(value = "pn", defaultValue = "1") Integer pn, Model model,HttpSession session){
         List<Employee> employees = iEmployeeService.selectAllEmployees();
         PageInfo page = loadEmployees(pn,employees);
         model.addAttribute("pageInfo", page);
-        return "personnel.jsp";
+        Employee employee = (Employee) session.getAttribute("employee");
+        if(employee.getAuthority()==2){
+            return "WEB-INF/employee/manager/PersonnelManager/personnel.jsp";
+        }
+        else{
+            return "WEB-INF/employee/personnel/PersonnelManager/personnel.jsp";
+        }
+
     }
+
+
 
     //添加新员工
     @RequestMapping("addEmployee.do")
@@ -113,7 +166,7 @@ public class EmployeeController {
             List<Employee> employees = iEmployeeService.selectAllEmployees();
             PageInfo page = loadEmployees(pn,employees);
             model.addAttribute("pageInfo", page);
-            return "personnel.jsp";
+            return "WEB-INF/employee/manager/PersonnelManager/personnel.jsp";
         }else{
             return "error.jsp";
         }
@@ -122,8 +175,8 @@ public class EmployeeController {
 
     //删除员工
     @RequestMapping("deleteEmployee.do")
-    public String deleteEmployee(String id,HttpSession session,Model model){
-        if(iEmployeeService.deleteEmployee(id)>0){
+    public String deleteEmployee(String employeeId,HttpSession session,Model model){
+        if(iEmployeeService.deleteEmployee(employeeId)>0){
             Employee employee1 =(Employee) session.getAttribute("employee");
             //日志登记
             String opeAction = "炒掉员工";
@@ -133,7 +186,7 @@ public class EmployeeController {
             List<Employee> employees = iEmployeeService.selectAllEmployees();
             PageInfo page = loadEmployees(pn,employees);
             model.addAttribute("pageInfo", page);
-            return "personnel.jsp";
+            return "WEB-INF/employee/manager/PersonnelManager/personnel.jsp";
         }
         else{
             return "error.jsp";

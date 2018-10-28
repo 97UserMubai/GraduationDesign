@@ -5,12 +5,12 @@ import systemOa.bean.Employee;
 import java.util.List;
 
 public interface IEmployeeDao {
-    Employee LoginCheck(String id);
+    Employee LoginCheck(String employeeId);
 
     List<Employee> selectAllEmployees();
 
     int insertEmployee(Employee employee);
 
-    int deleteEmployee(String id);
+    int deleteEmployee(String employeeId);
 
 }

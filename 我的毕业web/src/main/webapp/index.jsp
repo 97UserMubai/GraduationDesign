@@ -62,7 +62,7 @@
             <!-- Start Sign In Form -->
             <form  class="fh5co-form animate-box" data-animate-effect="fadeIn" action="LoginCheck.do">
                 <h2>登录</h2>
-                    <input type="text" class="form-control" name="id" placeholder="员工ID" >
+                    <input type="text" class="form-control" name="employeeId" placeholder="员工ID" >
                     <br>
                     <input type="password" class="form-control" name="password" placeholder="密码" >
 

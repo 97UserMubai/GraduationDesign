@@ -25,8 +25,8 @@ public class EmployeeServiceImpl implements IEmployeeService {
     }
 
     @Override
-    public Employee LoginCheck(String id,String password) {
-        Employee employee = iEmployeeDao.LoginCheck(id);
+    public Employee LoginCheck(String employeeId,String password) {
+        Employee employee = iEmployeeDao.LoginCheck(employeeId);
         if (employee != null && employee.getPassword().equals(password)) {
             return employee;
         } else {
@@ -45,8 +45,8 @@ public class EmployeeServiceImpl implements IEmployeeService {
     }
 
     @Override
-    public int deleteEmployee(String id) {
-        return iEmployeeDao.deleteEmployee(id);
+    public int deleteEmployee(String employeeId) {
+        return iEmployeeDao.deleteEmployee(employeeId);
     }
 
 
