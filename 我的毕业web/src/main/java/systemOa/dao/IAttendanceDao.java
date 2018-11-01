@@ -27,6 +27,6 @@ public interface IAttendanceDao {
         List<Attendance> selectMonthClockAndKnockByEmployeeId(@Param("monthId")String monthId,
                                                               @Param("employeeId")String employeeId);
 
-
+        List<Attendance> selectMonthClockAndKnockByMonthID(@Param("monthId")String monthId);
 
 }

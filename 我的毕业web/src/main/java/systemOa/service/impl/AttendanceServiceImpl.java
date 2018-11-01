@@ -55,4 +55,9 @@ public class AttendanceServiceImpl implements IAttendanceService {
         return iAttendanceDao.selectMonthClockAndKnockByEmployeeId(monthId,employeeId);
     }
 
+    @Override
+    public List<Attendance> selectMonthClockAndKnockByMonthID(String monthId) {
+        return iAttendanceDao.selectMonthClockAndKnockByMonthID(monthId);
+    }
+
 }

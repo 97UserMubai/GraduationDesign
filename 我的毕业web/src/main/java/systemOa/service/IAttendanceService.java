@@ -1,5 +1,6 @@
 package systemOa.service;
 
+import org.apache.ibatis.annotations.Param;
 import systemOa.bean.Attendance;
 
 import java.util.Date;
@@ -22,4 +23,5 @@ public interface IAttendanceService {
 
     public List<Attendance> selectMonthClockAndKnockByEmployeeId(String monthId, String employeeId);
 
+    public List<Attendance> selectMonthClockAndKnockByMonthID(String monthId);
 }

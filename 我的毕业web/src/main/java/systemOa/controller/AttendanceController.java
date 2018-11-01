@@ -1,11 +1,14 @@
 package systemOa.controller;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import systemOa.bean.Attendance;
 import systemOa.bean.AttendanceCount;
 import systemOa.bean.Employee;
@@ -18,6 +21,7 @@ import systemOa.useClass.FrequentMethod;
 import javax.servlet.http.HttpSession;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 @Controller
 public class AttendanceController {
@@ -218,6 +222,49 @@ public class AttendanceController {
         }
         return "error.jsp";
     }
+    //签退方法结束
+
+    /*
+    * selectEmployeeAttendanceLog方法查询普通员工和实习生的签到签退记录
+    **/
+
+    @RequestMapping("selectEmployeeAttendanceLog.do")
+    public String selectEmployeeAttendanceLog(@RequestParam(value = "pn", defaultValue = "1") Integer pn,
+                                              Model model,HttpSession session){
+
+        int pageSize = 1000;
+        //pageSize为总的记录长度
+        PageHelper.startPage(pn, pageSize);
+        Attendance attendance = (Attendance)session.getAttribute("attendance");
+        List<Attendance> attendances = iAttendanceService.selectMonthClockAndKnockByEmployeeId(attendance.getMonthId(),attendance.getEmployeeId());
+        System.out.println(attendances);
+        PageInfo page = new PageInfo(attendances, pageSize);
+        model.addAttribute("pageInfo", page);
+        return "WEB-INF/employee/PublicJsp/AttendanceManager/ClockAndKnockLog.jsp";
+
+    }
+
+    //authority=2的员工查询所有员工的本月签到签退信息
+    @RequestMapping("selectEmployeeAttendanceAllLog.do")
+    public String selectEmployeeAttendanceAllLog(@RequestParam(value = "pn", defaultValue = "1") Integer pn,
+                                              Model model,HttpSession session){
+        Employee employee = (Employee)session.getAttribute("employee");
+        if(employee.getAuthority()==3||employee.getAuthority()==4){
+            return "redirect:selectEmployeeAttendanceLog.do";
+        }
+        int pageSize = 1000;
+        //pageSize为总的记录长度
+        PageHelper.startPage(pn, pageSize);
+        Attendance attendance = (Attendance)session.getAttribute("attendance");
+        List<Attendance> attendances = iAttendanceService.selectMonthClockAndKnockByMonthID(attendance.getMonthId());
+        System.out.println(attendances);
+        PageInfo page = new PageInfo(attendances, pageSize);
+        model.addAttribute("pageInfo", page);
+        return "WEB-INF/employee/PublicJsp/AttendanceManager/ClockAndKnockLog.jsp";
+
+    }
+
+
 
 
 }

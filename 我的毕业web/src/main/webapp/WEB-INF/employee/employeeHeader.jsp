@@ -1,3 +1,5 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core_1_1" %>
+<%--如果使用c标签必须定义的一个引用--%>
 <%--
   Created by IntelliJ IDEA.
   User: 木白
@@ -94,13 +96,27 @@
                     <li class="menu-item menu-item-has-children dropdown"><a href="">考勤管理</a>
                         <ul class="sub-menu">
                             <li class="menu-item"><a href="${pageContext.request.contextPath}/jumpAttendanceIndex.do">签到/签退</a></li>
-                            <li class="menu-item"><a href="#">请假</a></li>
-                            <li class="menu-item"><a href="#">查看考勤历史</a></li>
+                            <li class="menu-item"><a href="${pageContext.request.contextPath}/jumpLeaveRequestJsp.do">请假</a></li>
+                            <li class="menu-item"><a href="${pageContext.request.contextPath}/selectEmployeeAttendanceAllLog.do">查看本月考勤记录</a></li>
                         </ul>
                     </li>
                     <li class="menu-item menu-item-has-children dropdown"><a href="#">消息管理</a>
                         <ul class="sub-menu">
-                            <li class="menu-item"><a href="index.html">消息传递</a></li>
+                            <c:if test="${sessionScope.employee.authority eq '2'}">
+                            <li class="menu-item"><a href="index.html">
+                                消息传递&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>${messageCount.normalMessageCount}</span>
+                            </a></li>
+                            </c:if>
+                            <c:if test="${sessionScope.employee.authority eq '3'}">
+                                <li class="menu-item"><a href="index.html">
+                                    消息传递
+                                </a></li>
+                            </c:if>
+                            <c:if test="${sessionScope.employee.authority eq '3'}">
+                                <li class="menu-item"><a href="index.html">
+                                    消息传递
+                                </a></li>
+                            </c:if>
                             <li class="menu-item"><a href="#">查看历史消息</a></li>
                         </ul>
                     </li>

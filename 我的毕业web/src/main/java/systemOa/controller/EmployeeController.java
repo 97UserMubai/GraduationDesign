@@ -4,15 +4,18 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import systemOa.bean.Attendance;
 import systemOa.bean.Employee;
+import systemOa.bean.MessageCount;
 import systemOa.bean.OperationLog;
 import systemOa.service.IAttendanceService;
 import systemOa.service.IEmployeeService;
+import systemOa.service.IMessageCountService;
 import systemOa.service.IOperationLogService;
 import systemOa.useClass.FrequentMethod;
 
@@ -61,6 +64,18 @@ public class EmployeeController {
         this.iAttendanceService = iAttendanceService;
     }
 
+    @Autowired
+    @Qualifier("messageCountService")
+    private IMessageCountService iMessageCountService;
+
+    public IMessageCountService getiMessageCountService() {
+        return iMessageCountService;
+    }
+
+    public void setiMessageCountService(IMessageCountService iMessageCountService) {
+        this.iMessageCountService = iMessageCountService;
+    }
+
     //封装的日志登记方法
     public void loadLogs(String opeAction, Employee employee){
         Date opeTime = new Date();
@@ -85,15 +100,13 @@ public class EmployeeController {
     @RequestMapping("LoginCheck.do")
     public String loginCheck(Employee employee, Model model, HttpSession session){
         employee = iEmployeeService.LoginCheck(employee.getEmployeeId(),employee.getPassword());
-
         if(employee!=null){
             String opeAction = "登录";
-//            System.out.println("###########测试");
             loadLogs(opeAction,employee);
-            //服务端信息记录
             session.setAttribute("employee",employee);
-
-//            Date dateAttendance = new Date();
+            System.out.println("####################"+employee.getAuthority());
+            Employee employee1 = (Employee)session.getAttribute("employee");
+            System.out.println(employee1.getAuthority());
             Calendar cal = Calendar.getInstance();
             cal.setTime(new Date());
             String year = String.valueOf(cal.get(cal.YEAR));
@@ -123,6 +136,8 @@ public class EmployeeController {
             else{
                 session.setAttribute("attendance",attendance);
             }
+            MessageCount messageCount = iMessageCountService.selectAllMessage();
+            session.setAttribute("messageCount",messageCount);
             return "WEB-INF/employee/employeeHeader.jsp";
         }else{
 

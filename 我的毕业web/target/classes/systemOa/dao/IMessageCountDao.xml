@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="systemOa.dao.IMessageCountDao">
+
+    <select id="selectNormalMessageCount" >
+        select normalMessageCount from systemoa.messageCount
+    </select>
+
+    <select id="selectImportantMessageCount" >
+        select importantMessageCountt from systemoa.messageCount
+    </select>
+
+    <update id="updateNormalMessageCount">
+        update systemoa.messageCount set
+        normalMessageCount= #{normalMessageCount}
+    </update>
+
+    <update id="updateImportantMessageCount">
+        update systemoa.messageCount set
+        importantMessageCount= #{importantMessageCount}
+    </update>
+
+    <!--该查询语句用于登录时获取的未处理信息的count，对应相对的authority-->
+    <select id="selectAllMessage" resultType="MessageCount">
+        select * from systemoa.messageCount;
+    </select>
+
+</mapper>

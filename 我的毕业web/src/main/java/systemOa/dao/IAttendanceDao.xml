@@ -40,11 +40,17 @@
         and employeeId = #{employeeId}
     </update>
 
-    <!--查询员工当月签到签退信息-->
+    <!--查询登录的普通员工当月签到签退信息-->
     <select id="selectMonthClockAndKnockByEmployeeId" resultType="Attendance">
         select * from systemoa.attendance
         where
         monthId = #{monthId} and employeeId = #{employeeId}
     </select>
 
+    <!--查询所有员工当月签到签退信息-->
+    <select id="selectMonthClockAndKnockByMonthID" resultType="Attendance">
+        select * from systemoa.attendance
+        where
+        monthId = #{monthId}
+    </select>
 </mapper>

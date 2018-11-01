@@ -21,8 +21,12 @@
         <button type="button" class="btn btn-danger  btn-sm" data-toggle="modal" data-target="#modalPrimary2">签退</button>
         </a>
         <br><br><br>
+
+        <a href="${pageContext.request.contextPath}/selectEmployeeAttendanceAllLog.do">
         <button type="button" class="btn btn-danger  btn-sm" data-toggle="modal" data-target="#modalPrimary2">查看本月签到签退记录</button>
-        <br><br><br>
+        </a>
+
+            <br><br><br>
         <button type="button" class="btn btn-danger  btn-sm" data-toggle="modal" data-target="#modalPrimary2">补签申请</button>
     </div>
 </body>
