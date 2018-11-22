@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--从文件中摘取的头部-->
+<mapper namespace="systemOa.dao.IUserDao">
+
+    <insert id="insertNewUser">
+        insert into systemoa.user(userId,userName,userSex,userPhone,userPinCode,userHomeAddress,
+        userHopeStoreLocation,userHopeCost)
+        values
+        (#{userId},#{userName},#{userSex},#{userPhone},#{userPinCode},
+        #{userHomeAddress},#{userHopeStoreLocation},#{userHopeCost})
+    </insert>
+
+    <update id="updateNewUser">
+        update systemoa.user
+        set userPinCode=#{userPinCode},userHomeAddress=#{userHomeAddress},
+        userHopeStoreLocation=#{userHopeStoreLocation},userHopeCost=#{userHopeCost}
+        where userId=#{userId}
+    </update>
+
+</mapper>

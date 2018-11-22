@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="systemOa.dao.IProjectedCostDao">
+
+    <insert id="insertNewPC">
+        insert into systemoa.projected_Cost(businessId,businessName,projectedDecCost,projectedStaffCost,
+        projectedGoodsCost,projectedOtherCost,otherCostDetail,projectedAllCost)
+        values
+        (#{businessId},#{businessName},#{projectedDecCost},#{projectedStaffCost},
+        #{projectedGoodsCost},#{projectedOtherCost},#{otherCostDetail},#{projectedAllCost})
+    </insert>
+
+    <update id="updatePc">
+        update systemoa.projected_Cost set
+        businessId=#{businessId},businessName=#{businessName},projectedDecCost=#{projectedDecCost},
+        projectedStaffCost=#{projectedStaffCost},projectedGoodsCost=#{projectedGoodsCost},
+        projectedOtherCost=#{projectedOtherCost},otherCostDetail=#{otherCostDetail},projectedAllCost=#{projectedAllCost}
+        where businessId=#{businessId}
+    </update>
+
+</mapper>

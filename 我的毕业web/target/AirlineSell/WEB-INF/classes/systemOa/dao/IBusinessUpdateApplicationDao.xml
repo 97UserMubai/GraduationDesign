@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="systemOa.dao.IBusinessUpdateApplicationDao">
+
+    <insert id="insertNewApplication">
+        insert into systemoa.updateApplication(messageId,style,employeeId,
+        employeeName,department,applyTime,applyEvent,applyReason,businessId,businessName,
+        userId,userName,status,provePerson,proveReason,proveTime)
+        values
+        (#{messageId},#{style},#{employeeId},#{employeeName},#{department},#{applyTime},
+        #{applyEvent},#{applyReason},#{businessId},#{businessName},#{userId},#{userName},
+        #{status},#{provePerson},#{proveReason},#{proveTime})
+    </insert>
+
+    <update id="updateApplication">
+        update systemoa.updateApplication
+        set status=#{status},provePerson=#{provePerson},proveReason=#{proveReason},
+        proveTime=#{proveTime}
+        where messageId=#{messageId}
+    </update>
+
+    <select id="selectApplicationById" resultType="BusinessUpdateApplication">
+        select * from systemoa.updateApplication where messageId = #{messageId}
+    </select>
+
+</mapper>

@@ -31,12 +31,29 @@ public class LeaveRequestServiceImpl implements ILeaveRequestService {
     }
 
     @Override
-    public List<LeaveRequest> selectAllMessage() {
-        return iLeaveRequestDao.selectAllMessage();
+    public List<LeaveRequest> selectAllMessageByEmployeeId(String employeeId) {
+        return iLeaveRequestDao.selectAllMessageByEmployeeId(employeeId);
+    }
+
+    @Override
+    public List<LeaveRequest> selectAllMessage(String department) {
+        return iLeaveRequestDao.selectAllMessage(department);
     }
 
     @Override
     public LeaveRequest selectByApplyTimeAndEmployeeId(String employeeId, int status) {
         return iLeaveRequestDao.selectByApplyTimeAndEmployeeId(employeeId,status);
     }
+
+    @Override
+    public int selecteCeshiMessageId(String employeeId, String applyTime) {
+        return iLeaveRequestDao.selecteCeshiMessageId(employeeId,applyTime);
+    }
+
+    @Override
+    public LeaveRequest selectMessageByMessageId(String messageId) {
+        return iLeaveRequestDao.selectMessageByMessageId(messageId);
+    }
+
+
 }

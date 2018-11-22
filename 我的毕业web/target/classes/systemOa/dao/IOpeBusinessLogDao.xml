@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="systemOa.dao.IOpeBusinessLogDao">
+    <insert id="insertNewLog">
+        insert into systemoa.ope_Business_Log(opePersonId,opePersonName,opeBusinessId,opeBusinessName,
+        opeAction,opeTime,opeAll)
+        values (#{opePersonId},#{opePersonName},#{opeBusinessId},#{opeBusinessName},
+        #{opeAction},#{opeTime},#{opeAll})
+    </insert>
+
+    <select id="selectAllLog" resultType="OpeBusinessLog">
+        select * from systemoa.ope_Business_Log
+    </select>
+
+    <select id="selectLogByPersonId" resultType="OpeBusinessLog">
+        select * from systemoa.ope_Business_Log
+        where opePersonId=#{opePersonId}
+    </select>
+
+</mapper>

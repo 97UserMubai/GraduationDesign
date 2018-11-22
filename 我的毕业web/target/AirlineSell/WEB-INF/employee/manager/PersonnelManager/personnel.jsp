@@ -127,15 +127,13 @@
                                                     </div>
                                                     <div class="modal-footer">
                                                         <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-                                                        <a href="${pageContext.request.contextPath}/deleteEmployee.do?employeeId=${pageInfo.list[status.index+1].employeeId}">
+                                                        <a href="${pageContext.request.contextPath}/deleteEmployee.do?employeeId=${employees.employeeId}">
                                                             <button type="button" class="btn btn-danger">确认炒他</button>
                                                         </a>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-
-
                                     </td>
                                 </tr>
                             </c:forEach>

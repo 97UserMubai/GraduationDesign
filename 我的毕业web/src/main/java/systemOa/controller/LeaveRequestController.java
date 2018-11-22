@@ -1,10 +1,13 @@
 package systemOa.controller;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import systemOa.bean.Employee;
 import systemOa.bean.LeaveRequest;
 import systemOa.bean.Message;
@@ -16,6 +19,7 @@ import systemOa.service.IMessageService;
 import javax.servlet.http.HttpSession;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 @Controller
 public class LeaveRequestController {
@@ -79,6 +83,9 @@ public class LeaveRequestController {
      * status等于0为处理中，等于1为已通过，等于2为未通过
      * 部门经理根据grade对message进行审批通过，或者传递到admin
      */
+    /**
+     * @Param status : 0 待审批 1 审批中 2已通过 3被驳回
+    */
     @RequestMapping("insertNewLeaveRequest.do")
     public String insertNewLeaveRequest(LeaveRequest leaveRequest, HttpSession session){
         Employee employee = (Employee)session.getAttribute("employee");
@@ -185,6 +192,10 @@ public class LeaveRequestController {
         //执行请假表插入操作
         int i = iLeaveRequestService.insertNewLeaveRequest(leaveRequest);
         if(i>0){
+//            SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-DD hh:mm:ss");
+//            String str = sdf1.format(applyTime);
+//            int id = iLeaveRequestService.selecteCeshiMessageId(employee.getEmployeeId(),str);
+//            System.out.println(id);
             Message message = new Message(messageId,style,0,grade,applyTime,
                     null,null,null);
             //执行Message表的插入
@@ -203,6 +214,40 @@ public class LeaveRequestController {
         session.setAttribute("message","登记失败");
         return "error.jsp";
     }
+
+    //对查询结果进行分页处理，获取对应authority，根据权限查询对应的历史信息范围
+    @RequestMapping("selectHistoryMessage.do")
+    public String selectHistoryMessage(@RequestParam(value = "pn", defaultValue = "1") Integer pn, Model model, HttpSession session){
+        Employee employee = (Employee)session.getAttribute("employee");
+        int pageSize = 1000;
+        //pageSize为总的记录长度
+        PageHelper.startPage(pn, pageSize);
+        if(employee.getAuthority()==2){
+            List<LeaveRequest> leaveRequests = iLeaveRequestService.selectAllMessage(employee.getDepartment());
+            PageInfo page = new PageInfo(leaveRequests, pageSize);
+            model.addAttribute("pageInfo", page);
+            return "messageManager.jsp";
+        }
+        if(employee.getAuthority()==3||employee.getAuthority()==4){
+            List<LeaveRequest> leaveRequests = iLeaveRequestService.selectAllMessageByEmployeeId(employee.getEmployeeId());
+            PageInfo page = new PageInfo(leaveRequests, pageSize);
+            model.addAttribute("pageInfo", page);
+            return "messageManager.jsp";
+        }
+        session.setAttribute("message","不知道为啥为跳转到这里");
+        return "error.jsp";
+    }
+
+    //查询指定位置的message，通过MessageId
+    @RequestMapping("getMessage")
+    public void selectMessageByMessageId(String messageId,HttpSession session){
+        int i = 0;
+        LeaveRequest leaveRequest = iLeaveRequestService.selectMessageByMessageId(messageId);
+        i = 1;
+        System.out.println(i);
+        session.setAttribute("leaveRequest1",leaveRequest);
+    }
+
 
 
 }

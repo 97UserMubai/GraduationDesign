@@ -6,20 +6,40 @@
 
     <insert id="insertNewLeaveRequest">
         insert into systemoa.leaverequest(messageId,style,employeeId,personName,department,leaveTime,
-        backTime,leaveReason,leaveDetail,status,applyTime,provePerson,proveReason,proveTime)
+        backTime,leaveReason,leaveDetail,status,applyTime,applyDays,provePerson,proveReason,proveTime)
         values
         (#{messageId},#{style},#{employeeId},#{personName},#{department},#{leaveTime},
-        #{backTime},#{leaveReason},#{leaveDetail},#{status},#{applyTime},
+        #{backTime},#{leaveReason},#{leaveDetail},#{status},#{applyTime},#{applyDays},
         #{provePerson},#{proveReason},#{proveTime})
     </insert>
 
     <select id="selectAllMessage" resultType="LeaveRequest">
         select * from systemoa.leaverequest
+        where
+        department = #{department}
+    </select>
+
+    <select id="selectAllMessageByEmployeeId" resultType="LeaveRequest">
+        select * from systemoa.leaverequest
+        where
+        employeeId = #{employeeId}
     </select>
 
     <select id="selectByApplyTimeAndEmployeeId" resultType="LeaveRequest">
         select * from systemoa.leaverequest
         where
         employeeId=#{employeeId} and  status = #{status}
+    </select>
+
+    <select id="selecteCeshiMessageId">
+        select messageId from systemoa.leaverequest
+        where
+         employeeId=#{employeeId} and  applyTime = #{applyTime}
+    </select>
+
+    <select id="selectMessageByMessageId" resultType="LeaveRequest">
+        select * from systemoa.leaverequest
+        where
+        messageId=#{messageId}
     </select>
 </mapper>

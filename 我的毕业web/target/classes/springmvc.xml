@@ -13,7 +13,7 @@
     <!--  配置组件扫描器-->
     <context:component-scan base-package="systemOa.controller"/>
     <!--注册注解驱动-->
-    <mvc:annotation-driven/>
+    <!--<mvc:annotation-driven/>-->
     <!--注册异常处理器-->
     <bean class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
         <property name="defaultErrorView" value="/Exception/errors.jsp"/>
@@ -25,6 +25,14 @@
     </bean>
     <!--注册验证驱动-->
     <mvc:annotation-driven validator="myValidator"/>
+    <mvc:annotation-driven >
+        <!-- 消息转换器 -->
+        <mvc:message-converters register-defaults="true">
+            <bean class="org.springframework.http.converter.StringHttpMessageConverter">
+                <property name="supportedMediaTypes" value="text/html;charset=UTF-8"/>
+            </bean>
+        </mvc:message-converters>
+    </mvc:annotation-driven>
     <!--注册文件驱动-->
     <!--<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">-->
         <!--<property name="defaultEncoding" value="utf-8"/>-->

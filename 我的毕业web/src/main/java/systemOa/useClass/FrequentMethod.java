@@ -44,11 +44,11 @@ public class FrequentMethod {
         Date opeTime = new Date();
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String dateString = formatter.format(opeTime);
+//        String opeAll = "人事部的村口二蛋在"+dateString+"进行了登录操作";
         String opeAll = employee.getDepartment()+"的"+employee.getName()+"在"+dateString+"进行了"
                 +opeAction+"操作";
         OperationLog operationLog = new OperationLog(employee.getName(),opeTime,opeAction,opeAll);
         iOperationLogService.insertLog(operationLog);
-
     }
 
     //封装的页面加载方法

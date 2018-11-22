@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="systemOa.dao.IBusinessProgressDao">
+
+    <insert id="insertNewProgress">
+        insert into systemoa.business_progress(businessId,businessName,progressTitle,progressDetail,
+        progressLabel,progressStatus,modifyTime)
+        values
+        (#{businessId},#{businessName},#{progressTitle},#{progressDetail},#{progressLabel},
+        #{progressStatus},#{modifyTime})
+    </insert>
+
+    <select id="selectByIdAndLabel" resultType="BusinessProgress">
+        select * from systemoa.business_progress
+        where businessId=#{businessId} and progressLabel=#{progressLabel}
+    </select>
+
+    <update id="updateProgressStatus">
+        update systemoa.business_progress set
+        modifyTime = #{modifyTime},progressStatus=#{progressStatus}
+        where
+        businessId=#{businessId} and progressLabel=#{progressLabel}
+    </update>
+
+    <update id="updateProgressDetail">
+        update systemoa.business_progress set
+        modifyTime = #{modifyTime},progressDetail=#{progressDetail}
+        where
+        businessId=#{businessId} and progressLabel=#{progressLabel}
+    </update>
+
+    <select id="selectAllProgress" resultType="BusinessProgress">
+        select * from systemoa.business_progress
+        where businessId=#{businessId}
+    </select>
+
+</mapper>

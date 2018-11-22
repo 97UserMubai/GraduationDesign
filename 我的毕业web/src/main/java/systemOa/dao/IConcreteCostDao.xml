@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="systemOa.dao.IConcreteCostDao">
+
+    <insert id="insertNewCC">
+        insert into systemoa.concrete_Cost(businessId,businessName,concreteDecCost,
+        concreteStaffCost,concreteGoodsCost,concreteOtherCost,OtherCostDetail,concreteAllCost)
+        values
+        (#{businessId},#{businessName},#{concreteDecCost},#{concreteStaffCost},
+        #{concreteGoodsCost},#{concreteOtherCost},#{OtherCostDetail},#{concreteAllCost})
+    </insert>
+
+    <update id="updateCC">
+        update systemoa.concrete_Cost
+        set
+        businessId=#{businessId},businessName=#{businessName},concreteDecCost=#{concreteDecCost},
+        concreteStaffCost=#{concreteStaffCost},concreteGoodsCost=#{concreteGoodsCost},
+        concreteOtherCost=#{concreteOtherCost},OtherCostDetail=#{OtherCostDetail},
+        concreteAllCost=#{concreteAllCost}
+    </update>
+</mapper>

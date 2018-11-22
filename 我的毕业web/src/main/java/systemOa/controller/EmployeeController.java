@@ -28,6 +28,8 @@ import java.util.List;
 @Controller
 public class EmployeeController {
 
+    FrequentMethod frequentMethod = new FrequentMethod();
+
     @Autowired
     @Qualifier("employeeService")
     private IEmployeeService iEmployeeService;
@@ -103,6 +105,9 @@ public class EmployeeController {
         if(employee!=null){
             String opeAction = "登录";
             loadLogs(opeAction,employee);
+//            System.out.println(opeAction);
+//            System.out.println(employee);
+//            frequentMethod.loadLogs(opeAction,employee);
             session.setAttribute("employee",employee);
             System.out.println("####################"+employee.getAuthority());
             Employee employee1 = (Employee)session.getAttribute("employee");
@@ -123,7 +128,7 @@ public class EmployeeController {
                 case 4:weekDay="星期四";break;
                 case 5:weekDay="星期五";break;
                 case 6:weekDay="星期六";break;
-                case 7:weekDay="星期日";break;
+                case 0:weekDay="星期日";break;
             }
             Attendance attendance = iAttendanceService.selectExistStatus(monthId,monthDay,employee.getEmployeeId());
             if(attendance==null){
@@ -138,13 +143,18 @@ public class EmployeeController {
             }
             MessageCount messageCount = iMessageCountService.selectAllMessage();
             session.setAttribute("messageCount",messageCount);
-            return "WEB-INF/employee/employeeHeader.jsp";
+            return "WEB-INF/employee/PublicJsp/ScheduleManager/scheduleManager.jsp";
         }else{
 
             model.addAttribute("msg", "用户名或密码错误，请重新登录！");
             return "index.jsp";
         }
 
+    }
+
+    @RequestMapping("jumpSchedule.do")
+    public String jumpSchedule(){
+        return "WEB-INF/employee/PublicJsp/ScheduleManager/scheduleManager.jsp";
     }
 
     //查询所有员工信息

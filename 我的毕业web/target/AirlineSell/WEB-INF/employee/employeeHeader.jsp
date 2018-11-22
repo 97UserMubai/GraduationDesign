@@ -80,9 +80,9 @@
             </div>
             <div class="navigation__column center">
                 <ul class="main-menu menu">
-                    <li class="menu-item menu-item-has-children dropdown"><a href="index.html">日程管理</a>
+                    <li class="menu-item menu-item-has-children dropdown"><a href="${pageContext.request.contextPath}/jumpSchedule.do">日程管理</a>
                         <ul class="sub-menu">
-                            <li class="menu-item"><a href="index.html">部门日程</a></li>
+                            <li class="menu-item"><a href="${pageContext.request.contextPath}/jumpSchedule.do">部门日程</a></li>
                             <li class="menu-item"><a href="#">我的日程</a></li>
                             <li class="menu-item"><a href="#">我的便签</a></li>
                         </ul>
@@ -112,12 +112,12 @@
                                     消息传递
                                 </a></li>
                             </c:if>
-                            <c:if test="${sessionScope.employee.authority eq '3'}">
+                            <c:if test="${sessionScope.employee.authority eq '4'}">
                                 <li class="menu-item"><a href="index.html">
                                     消息传递
                                 </a></li>
                             </c:if>
-                            <li class="menu-item"><a href="#">查看历史消息</a></li>
+                            <li class="menu-item"><a href="${pageContext.request.contextPath}/selectHistoryMessage.do">查看历史消息</a></li>
                         </ul>
                     </li>
                     <li class="menu-item menu-item-has-children dropdown"><a href="#">人事管理</a>

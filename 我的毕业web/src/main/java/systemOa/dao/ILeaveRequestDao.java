@@ -10,9 +10,14 @@ public interface ILeaveRequestDao {
 
     int insertNewLeaveRequest(LeaveRequest leaveRequest);
 
-    List<LeaveRequest> selectAllMessage();
+    List<LeaveRequest> selectAllMessageByEmployeeId(String employeeId);
+
+    List<LeaveRequest> selectAllMessage(String department);
 
     LeaveRequest  selectByApplyTimeAndEmployeeId(@Param("employeeId") String employeeId,
                                         @Param("status") int status);
 
+    LeaveRequest  selectMessageByMessageId(@Param("messageId") String messageId);
+
+    int selecteCeshiMessageId(@Param("employeeId")String employeeId,@Param("applyTime")String applyTime);
 }

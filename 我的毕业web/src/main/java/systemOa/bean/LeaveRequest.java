@@ -142,10 +142,10 @@ public class LeaveRequest {
 
     public LeaveRequest(){super();}
 
-    public LeaveRequest(String  messageId, String style, String employeeId,
+    public LeaveRequest(String messageId, String style, String employeeId,
                         String personName, String department, String leaveTime,
                         String backTime, String leaveReason, String leaveDetail,
-                        int status, Date applyTime,String applyDays, String provePerson,
+                        int status, Date applyTime, String applyDays, String provePerson,
                         String proveReason, Date proveTime) {
         this.messageId = messageId;
         this.style = style;

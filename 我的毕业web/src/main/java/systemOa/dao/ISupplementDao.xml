@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="systemOa.dao.ISupplementDao">
+
+    <insert id="insertNewSupplement">
+        insert into systemoa.supplement(messageId,style,employeeId,personName,department,supplementDay,
+        supplementTime,supplementReason,supplementDetail,status,applyTime,provePerson,proveReason,
+        proveTime)
+        values
+        (#{messageId},#{style},#{employeeId},#{personName},#{department},#{supplementDay},#{supplementTime},#
+        {supplementReason},#{supplementDetail},#{status},#{applyTime},#{provePerson},#{proveReason},
+        #{proveTime})
+    </insert>
+
+</mapper>
