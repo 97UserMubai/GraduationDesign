@@ -16,6 +16,7 @@ public class Admin {
     private int authority;
 
 
+
     public String getAccount() {
         return account;
     }
